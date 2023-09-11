@@ -1,0 +1,237 @@
+
+<%@page import="Modelo.Conexion"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="Modelo.*" %>
+<!DOCTYPE html>
+
+
+<%
+    Conexion con = new Conexion();
+    con.rs = con.smt.executeQuery("SELECT placa, CONCAT(c.nombre, ' ', c.apellido) AS 'Nombre y Apellido', modelo, estado, num_licencia, capacidad "
+            + "FROM chofer c "
+            + "INNER JOIN bus b ON b.id_chofer = c.id_chofer ");
+%>
+<html>
+    <head>
+
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <title>Desarrollo WEB</title>
+
+        <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+        <link
+            href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+            rel="stylesheet">
+        <link href="../css/css-boostrap/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <link href="../css/style.min.css" rel="stylesheet">
+        <link href="../css/tan_pro.css" rel="stylesheet" type="text/css"/>
+    </head>
+
+    <body id="page-top">
+        <div id="wrapper">
+            <ul class="navbar-nav bg-gradient-dark sidebar sidebar-dark accordion" id="accordionSidebar">
+
+                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="intranet.jsp">
+                    <div class="sidebar-brand-icon rotate-n-15">
+                        <i class="fas fa-bus"></i>
+                    </div>
+                    <div class="sidebar-brand-text mx-3">Curious Agency S.A</div>
+                </a>
+
+                <hr class="sidebar-divider my-0">
+
+                <li class="nav-item active">
+                    <a class="nav-link" href="intranet.jsp">
+                        <i class="fas fa-fw fa-tachometer-alt"></i>
+                        <span>Dashboard</span></a>
+                </li>
+
+                <hr class="sidebar-divider">
+
+                <div class="sidebar-heading">
+                    Configuracion
+                </div>
+
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                       aria-expanded="true" aria-controls="collapseTwo">
+                        <i class="fas fa-fw fa-cog"></i>
+                        <span>Configuracion</span>
+                    </a>
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Customs</h6>
+                            <a class="collapse-item" href="config1.jsp">Config</a>
+                            <a class="collapse-item" href="config2.jsp">Config2</a>
+                        </div>
+                    </div>
+                </li>
+
+                <hr class="sidebar-divider">
+
+                <div class="sidebar-heading">
+                    Agencia
+                </div>
+
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
+                       aria-expanded="true" aria-controls="collapsePages">
+                        <i class="fas fa-fw fa-id-card"></i>
+                        <span>Transporte</span>
+                    </a>
+                    <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <a class="collapse-item" href="buses.jsp">Buses</a>
+                            <a class="collapse-item" href="choferes.jsp">Choferes</a>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="rutas.jsp">
+                        <i class="fas fa-fw fa-bus"></i>
+                        <span>Rutas</span></a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="registros.jsp">
+                        <i class="fas fa-fw fa-calendar"></i>
+                        <span>Registros de ventas</span></a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="quejas.jsp">
+                        <i class="fas fa-fw fa-exclamation-triangle"></i>
+                        <span>Quejas y Reclamos</span></a>
+                </li>
+
+                <hr class="sidebar-divider d-none d-md-block">
+
+                <div class="text-center d-none d-md-inline">
+                    <button class="rounded-circle border-0" id="sidebarToggle"></button>
+                </div>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="login.jsp">
+                        <i class="fas fa-fw fa-sign-out-alt"></i>
+                        <span>Salir</span></a>
+                </li>
+            </ul>
+
+            <div id="content-wrapper" class="d-flex flex-column">
+                <div id="content">
+                    <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                        <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                            <i class="fa fa-bars"></i>
+                        </button>
+
+                        <div class="sidebar-brand-text mx-3">Curious Agency S.A</div>
+
+                        <ul class="navbar-nav ml-auto">
+
+                            <li class="nav-item dropdown no-arrow">
+                                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="mr-2 d-none d-lg-inline text-gray-600 small">Jhovan Camacho</span>
+                                    <img class="img-profile rounded-circle" src="../img/undraw_profile.svg">
+                                </a>
+
+                                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                     aria-labelledby="userDropdown">
+                                    <a class="dropdown-item" href="perfil.jsp">
+                                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        Perfil
+                                    </a>
+                                    <a class="dropdown-item" href="config-perfil.jsp">
+                                        <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        Configuracion
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="login.jsp" data-toggle="modal"
+                                       data-target="#logoutModal">
+                                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        Logout
+                                    </a>
+                                </div>
+                            </li>
+
+                        </ul>
+
+                    </nav>
+
+                    <!-- CONTENIDO DE LA VENTANA -->
+
+
+                    <nav class="navbar bg-body-tertiary my-3">
+                        <div class="container-fluid">
+                            <form class="d-flex" role="search">
+                                <button class="mr-3 btn btn-success" type="submit"><i class="mr-1 fas fa-plus"></i>Agregar Chofer</button>
+                                
+                            </form>
+                            <div class="d-flex">
+                                <input class="form-control me-2 barra-busqueda" type="search" placeholder="Ingrese Placa" aria-label="Search">
+                                <button class="btn btn-outline-success mx-2" type="submit">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                            <div class="d-flex">
+                                <button class="btn btn-danger" type="submit">Exportar PDF</button> 
+                            </div>
+
+                        </div>
+                    </nav>
+                    <table class="table table-striped table-hover table-bordered mx-2">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Placa</th>
+                                <th>Chofer</th>
+                                <th>Modelo</th>
+                                <th>Estado</th>
+                                <th>Num_Licencia</th>
+                                <th>Capacidad</th>
+                                <th>Configuración</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% while (con.rs.next()) {%>
+                            <tr>
+                                <td class="text-center"><%=con.rs.getString("placa")%> </td>
+                                <td><%=con.rs.getString("Nombre y Apellido")%> </td>
+                                <td><%=con.rs.getString("modelo")%> </td>
+                                <td><%=con.rs.getString("estado")%> </td>
+                                <td><%=con.rs.getString("num_licencia")%> </td>
+                                <td><%=con.rs.getInt("capacidad")%> </td>
+                                <td class="text-center">
+                                    <button type="button" class="btn btn-primary"><i class="fas fa-edit"></i></button>
+                                    <button type="button" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <% }%>
+                        </tbody>
+                    </table>
+                    <!-- FINALIZA EL CONTENIDO XD -->
+
+                </div>
+
+                <footer class="sticky-footer bg-white">
+                    <div class="container my-auto">
+                        <div class="copyright text-center my-auto">
+                            <span>Proyecto UTP &copy; Desarrollo WEB</span>
+                        </div>
+                    </div>
+                </footer>
+
+            </div>
+
+        </div>
+
+        <script src="../vendor/jquery/jquery.min.js"></script>
+        <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+        <script src="../js/sb-admin-2.min.js"></script>
+    </body>
+
+</html>
