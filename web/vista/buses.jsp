@@ -168,7 +168,7 @@
                     <nav class="navbar bg-body-tertiary my-3">
                         <div class="container-fluid">
                             <form class="d-flex" role="search">
-                                <button class="mr-3 btn btn-success" type="submit"><i class="mr-1 fas fa-plus"></i>Agregar Chofer</button>
+                                <button class="mr-3 btn btn-success" type="submit"><i class="mr-1 fas fa-plus"></i>Agregar Bus</button>
                                 
                             </form>
                             <div class="d-flex">

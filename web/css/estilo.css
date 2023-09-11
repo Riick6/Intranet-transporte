@@ -1,0 +1,91 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 9 set. 2023, 07:07:07
+    Author     : MESSI
+*/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.zoom-75{
+     zoom: 0.75;
+}
+body {
+  background: url('../img/peru_latam_.gif') no-repeat center center fixed;
+  background-size: cover;
+  height: 100vh;
+}
+
+#cuadro {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 900px;
+  height: 679px;
+  background: #ffffff;
+  color: #29475a;
+  border-radius: 6px;
+  opacity: 0.8;
+}
+
+.Img1 {
+  position: relative;
+  left: 54%;
+  top: -72%;
+  width: 50%;
+  height: auto;
+}
+
+.Img2 {
+  position: relative;
+  left: 16%;
+  top: 10%;
+  width: 20%;
+  height: auto;
+}
+
+#titulo {
+  font-size: 25px;
+  font-family: fantasy;
+  text-align: left;
+  margin-top: 75px;
+  margin-bottom: 55px;
+  margin-left: 95px;
+}
+
+.entrada {
+  width: 80%;
+  max-width: 320px;
+  height: 35px;
+  border-radius: 6px;
+  font-family: verdana;
+  font-weight: 900;
+  color: #d2d2d2;
+  border-color: #29475a;
+}
+
+#boton {
+  width: 80%;
+  max-width: 324px;
+  height: 45px;
+  background: linear-gradient(to right, #344d63 0%, #85dcf9 100%);
+  color: #ffffff;
+  font-size: 20px;
+  font-family: fantasy;
+}
+
+.vertical-line {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+  width: 5px;
+  height: 100%;
+  background: linear-gradient(to bottom, #344d63 0%, #85dcf9 100%);
+  color: #ffffff;
+}

@@ -1,6 +1,17 @@
 
+<%@page import="Modelo.Conexion"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="Modelo.*" %>
 <!DOCTYPE html>
+
+
+<%
+    Conexion con = new Conexion();
+    con.rs = con.smt.executeQuery("select id_chofer, nombre, apellido, edad, horario, telefono from chofer; ");
+
+%>
+<!DOCTYPE html>
+
 <html>
 
     <head>
@@ -154,7 +165,53 @@
                     </nav>
 
                     <!-- CONTENIDO DE LA VENTANA -->
-                    <H1>AQUI VA LOS CHOFERES :v</H1>
+                    <nav class="navbar bg-body-tertiary my-3">
+                        <div class="container-fluid">
+                            <form class="d-flex" role="search">
+                                <button class="mr-3 btn btn-success" type="submit"><i class="mr-1 fas fa-plus"></i>Agregar Chofer</button>
+                                
+                            </form>
+                            <div class="d-flex">
+                                <input class="form-control me-2 barra-busqueda" type="search" placeholder="Ingrese id del chofer" aria-label="Search">
+                                <button class="btn btn-outline-success mx-2" type="submit">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                            <div class="d-flex">
+                                <button class="btn btn-danger" type="submit">Exportar PDF</button> 
+                            </div>
+
+                        </div>
+                    </nav>
+                    <table class="table table-striped table-hover table-bordered mx-2">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>id_chofer</th>
+                                <th>Nombre</th>
+                                <th>Apellido</th>
+                                <th>Edad</th>
+                                <th>Horario</th>
+                                <th>Teléfono</th>
+                                <th>Configuración</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% while (con.rs.next()) {%>
+                            <tr>
+                                <td class="text-center"><%=con.rs.getString("id_chofer")%> </td>
+                                <td><%=con.rs.getString("nombre")%> </td>
+                                <td><%=con.rs.getString("apellido")%> </td>
+                                <td><%=con.rs.getString("edad")%> </td>
+                                <td><%=con.rs.getString("horario")%> </td>
+                                <td><%=con.rs.getInt("telefono")%> </td>
+                                <td class="text-center">
+                                    <button type="button" class="btn btn-primary"><i class="fas fa-edit"></i></button>
+                                    <button type="button" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <% }%>
+                        </tbody>
+                    </table>
                     <!-- FINALIZA EL CONTENIDO XD -->
 
                 </div>

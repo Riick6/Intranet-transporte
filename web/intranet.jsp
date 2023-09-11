@@ -22,14 +22,14 @@
     <body id="page-top">
         <div id="wrapper">
             <ul class="navbar-nav bg-gradient-dark sidebar sidebar-dark accordion" id="accordionSidebar">
-                
+
                 <a class="sidebar-brand d-flex align-items-center justify-content-center" href="intranet.jsp">
                     <div class="sidebar-brand-icon rotate-n-15">
                         <i class="fas fa-bus"></i>
                     </div>
                     <div class="sidebar-brand-text mx-3">Curious Agency S.A</div>
                 </a>
-                
+
                 <hr class="sidebar-divider my-0">
 
                 <li class="nav-item active">
@@ -140,11 +140,10 @@
                                         Configuracion
                                     </a>
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="vista/login.jsp" data-toggle="modal"
-                                       data-target="#logoutModal">
-                                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                        Logout
-                                    </a>
+                                    <a class="nav-link" href="vista/login.jsp">
+                                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        <span>Log Out</span></a>
+                                    
                                 </div>
                             </li>
 
