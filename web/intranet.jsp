@@ -24,13 +24,13 @@
             <ul class="navbar-nav bg-gradient-dark sidebar sidebar-dark accordion" id="accordionSidebar">
 
                 <a class="sidebar-brand d-flex align-items-center justify-content-center" href="intranet.jsp">
-                    <div class="sidebar-brand-icon rotate-n-15">
-                        <i class="fas fa-bus"></i>
+                    <div class="sidebar-brand-icon ">
+                        <img src="./img/intranet_icono.png" alt="Icono" class="img-fluid ">
                     </div>
-                    <div class="sidebar-brand-text mx-3">Curious Agency S.A</div>
+                    <div class="sidebar-brand-text mx-3 my-1">Curious Agency S.A</div>
                 </a>
 
-                <hr class="sidebar-divider my-0">
+                <hr class="sidebar-divider my-1">
 
                 <li class="nav-item active">
                     <a class="nav-link" href="intranet.jsp">
@@ -41,58 +41,62 @@
                 <hr class="sidebar-divider">
 
                 <div class="sidebar-heading">
-                    Configuracion
+                    Agencia
                 </div>
 
                 <li class="nav-item">
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                        aria-expanded="true" aria-controls="collapseTwo">
                         <i class="fas fa-fw fa-cog"></i>
-                        <span>Configuracion</span>
+                        <span>Procesos</span>
                     </a>
                     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                        <div class="bg-white py-2 collapse-inner rounded">
-                            <h6 class="collapse-header">Customs</h6>
-                            <a class="collapse-item" href="vista/config1.jsp">Config</a>
-                            <a class="collapse-item" href="vista/config2.jsp">Config2</a>
+                        <div class="bg-dark py-2 collapse-inner rounded">
+                            <a class="collapse-item text-white" href="vista/Venta_Boletos.jsp">Venta de Boletos</a>
+                            <a class="collapse-item text-white" href="vista/Horarios.jsp">Horarios de Transporte</a>
                         </div>
                     </div>
                 </li>
-
-                <hr class="sidebar-divider">
-
-                <div class="sidebar-heading">
-                    Agencia
-                </div>
 
                 <li class="nav-item">
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
                        aria-expanded="true" aria-controls="collapsePages">
-                        <i class="fas fa-fw fa-id-card"></i>
-                        <span>Transporte</span>
+                        <i class="fas fa-fw fa-book"></i>
+                        <span>Registros</span>
                     </a>
                     <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                        <div class="bg-white py-2 collapse-inner rounded">
-                            <a class="collapse-item" href="vista/buses.jsp">Buses</a>
-                            <a class="collapse-item" href="vista/choferes.jsp">Choferes</a>
+                        <div class="bg-dark py-2 collapse-inner rounded">
+                            <a class="collapse-item text-white" href="vista/Registro_Buses.jsp">Registrar Buses</a>
+                            <a class="collapse-item text-white" href="vista/Asignar_Buses.jsp">Asignar Buses</a>
+                            <a class="collapse-item text-white" href="vista/Registro_Terminal.jsp">Registrar Terminal</a>
+                            <a class="collapse-item text-white" href="vista/Rutas.jsp">Rutas</a>
                         </div>
                     </div>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="vista/rutas.jsp">
+                    <a class="nav-link" href="vista/tipo_bus.jsp">
                         <i class="fas fa-fw fa-bus"></i>
-                        <span>Rutas</span></a>
+                        <span>Tipos de Buses</span></a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="vista/registros.jsp">
-                        <i class="fas fa-fw fa-calendar"></i>
-                        <span>Registros de ventas</span></a>
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
+                       aria-expanded="true" aria-controls="collapseUtilities">
+                        <i class="fas fa-fw fa-id-card"></i>
+                        <span>Personal</span>
+                    </a>
+                    <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
+                         data-parent="#accordionSidebar">
+                        <div class="bg-dark py-2 collapse-inner rounded">
+                            <a class="collapse-item text-white" href="vista/Administradores.jsp">Administradores</a>
+                            <a class="collapse-item text-white" href="vista/Choferes.jsp">Choferes</a>
+                        </div>
+                    </div>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="vista/quejas.jsp">
+                    <a class="nav-link" href="vista/Quejas.jsp">
                         <i class="fas fa-fw fa-exclamation-triangle"></i>
                         <span>Quejas y Reclamos</span></a>
                 </li>
@@ -104,7 +108,7 @@
                 </div>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="vista/login.jsp">
+                    <a class="nav-link" href="vista/Login.jsp">
                         <i class="fas fa-fw fa-sign-out-alt"></i>
                         <span>Salir</span></a>
                 </li>
@@ -131,19 +135,14 @@
 
                                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                      aria-labelledby="userDropdown">
-                                    <a class="dropdown-item" href="vista/perfil.jsp">
+                                    <a class="dropdown-item" href="vista/Perfil.jsp">
                                         <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Perfil
                                     </a>
-                                    <a class="dropdown-item" href="vista/config-perfil.jsp">
-                                        <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                        Configuracion
-                                    </a>
                                     <div class="dropdown-divider"></div>
-                                    <a class="nav-link" href="vista/login.jsp">
+                                    <a class="nav-link" href="vista/Login.jsp">
                                         <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                        <span>Log Out</span></a>
-                                    
+                                        <span>Salir</span></a>                     
                                 </div>
                             </li>
 
@@ -152,7 +151,10 @@
                     </nav>
 
                     <!-- CONTENIDO DE LA VENTANA -->
-                    <H1>DASHBOARD</H1>
+                    <div class="container">
+                       <H1>DASHBOARD</H1> 
+                    </div>
+                    
                     <!-- FINALIZA EL CONTENIDO XD -->
 
                 </div>

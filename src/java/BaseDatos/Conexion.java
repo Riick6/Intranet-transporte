@@ -1,7 +1,7 @@
 
-package Modelo;
+package BaseDatos;
 
-import static Modelo.Parametros.*;
+import static BaseDatos.Parametros.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;

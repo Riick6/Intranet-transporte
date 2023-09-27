@@ -2,6 +2,13 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/Users/CARSA%20-%20PISCO/Documents/NetBeansProjects/Intranet-transporte/web/intranet.jsp</file>
+            <file>file:/C:/Users/CARSA%20-%20PISCO/Documents/NetBeansProjects/Intranet-transporte/src/java/BaseDatos/CRUD.java</file>
+            <file>file:/C:/Users/CARSA%20-%20PISCO/Documents/NetBeansProjects/Intranet-transporte/src/java/BaseDatos/Conexion.java</file>
+            <file>file:/C:/Users/CARSA%20-%20PISCO/Documents/NetBeansProjects/Intranet-transporte/web/vista/Administradores.jsp</file>
+            <file>file:/C:/Users/CARSA%20-%20PISCO/Documents/NetBeansProjects/Intranet-transporte/src/java/Modelo/Administrador.java</file>
+            <file>file:/C:/Users/CARSA%20-%20PISCO/Documents/NetBeansProjects/Intranet-transporte/src/java/BaseDatos/Parametros.java</file>
+        </group>
     </open-files>
 </project-private>

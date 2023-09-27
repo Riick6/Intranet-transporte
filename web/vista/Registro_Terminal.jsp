@@ -152,7 +152,7 @@
                     </nav>
 
                     <!-- CONTENIDO DE LA VENTANA -->
-                    <H1>PERFIL</H1>
+                    <H1>REGISTRO TERMINAL</H1>
                     <!-- FINALIZA EL CONTENIDO XD -->
 
                 </div>

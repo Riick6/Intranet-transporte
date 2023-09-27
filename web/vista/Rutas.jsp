@@ -152,7 +152,7 @@
                     </nav>
 
                     <!-- CONTENIDO DE LA VENTANA -->
-                    <H1>PERFIL</H1>
+                    <H1>RUTAS</H1>
                     <!-- FINALIZA EL CONTENIDO XD -->
 
                 </div>
