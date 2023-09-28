@@ -7,11 +7,11 @@ public class Administrador {
     private String nombre;
     private String apellido;
     private String dni;
-    private String genero;
+    private String sexo;
     private int edad;
     private String celular;
     private String correo;
-    private String contraseña;
+    private String contra;
 
     public String getId_administrador() {
         return id_administrador;
@@ -45,12 +45,12 @@ public class Administrador {
         this.dni = dni;
     }
 
-    public String getGenero() {
-        return genero;
+    public String getSexo() {
+        return sexo;
     }
 
-    public void setGenero(String genero) {
-        this.genero = genero;
+    public void setSexo(String genero) {
+        this.sexo = genero;
     }
 
     public int getEdad() {
@@ -77,12 +77,12 @@ public class Administrador {
         this.correo = correo;
     }
 
-    public String getContraseña() {
-        return contraseña;
+    public String getContra() {
+        return contra;
     }
 
-    public void setContraseña(String contraseña) {
-        this.contraseña = contraseña;
+    public void setContra(String contraseña) {
+        this.contra = contraseña;
     }
     
     

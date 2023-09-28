@@ -1,4 +1,5 @@
 
+<%@page import="javax.swing.JOptionPane"%>
 <%@page import="BaseDatos.*"%>
 <%@page import="Modelo.*" %>
 <%@page import="java.sql.*" %>
@@ -162,7 +163,7 @@
 
                     <!-- CONTENIDO DE LA VENTANA -->
                     <div class="container">
-                        <form action="Administradores.jsp" method="post">
+                        <form name="formadmin" action="Administradores.jsp" method="POST">
                             <div class="container bg-white py-2 my-2 rounded">
                                 <div class="h6">
                                     <i class="fas fa-bus fa-sm fa-fw mr-2 "></i>REGISTRAR ADMINISTRADOR
@@ -183,7 +184,7 @@
                                             <label for="dni-admi" class="form-label">DNI</label>
                                             <input type="text" name="dni" class="form-control" placeholder="Ingrese su DNI..." id="dni-admi" >
                                         </div>
-                                        
+
                                         <div class="row">
                                             <div class="col-6">
                                                 <div class="mb-3">
@@ -221,7 +222,7 @@
                                         </div>
                                         <div class="mb-3">
                                             <label for="contra-admi" class="form-label">Contraseña</label>
-                                            <input type="password" name="contraseña" class="form-control" placeholder="*****" id="contra-admi">
+                                            <input type="password" name="contra" class="form-control" placeholder="*****" id="contra-admi">
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label" >Sexo</label>
@@ -229,8 +230,8 @@
                                                 <option value="1">Masculino</option>
                                                 <option value="2">Femenino</option>
                                             </select>
+                                            <input type="submit" name="guardar-admi" value="Guardar" class="btn btn-success mt-4 w-100"/>
                                         </div>
-                                        <button type="submit" name="guardar-admi" class="btn btn-success mt-4 w-100">Guardar</button>
                                     </div>
                                 </div>
                             </div> 
@@ -244,23 +245,27 @@
                                 String edad = request.getParameter("edad");
                                 String celular = request.getParameter("celular");
                                 String correo = request.getParameter("correo");
-                                String contraseña = request.getParameter("contraseña");
+                                String contra = request.getParameter("contra");
 
-                                if (nombre != null && apellido != null && dni != null && genero != null && edad != null && celular != null && correo != null && contraseña != null) {
-                                    Administrador adm = new Administrador(); 
+                                if (nombre != null && apellido != null && dni != null && genero != null && edad != null && celular != null && correo != null && contra != null) {
+                                    
+                                    Administrador adm = new Administrador();
                                     adm.setNombre(nombre);
                                     adm.setApellido(apellido);
                                     adm.setDni(dni);
-                                    adm.setGenero(genero);
+                                    adm.setSexo(genero);
                                     adm.setEdad(Integer.parseInt(edad));
                                     adm.setCelular(celular);
                                     adm.setCorreo(correo);
-                                    adm.setContraseña(contraseña);
-                                    CRUD crud = new CRUD(); 
+                                    adm.setContra(contra);
+
+                                    CRUD crud = new CRUD();
                                     crud.InsertarAdministrador(adm);
                                     response.sendRedirect("Administradores.jsp");
-                                }
-                            }
+                                } else {
+                                    JOptionPane.showMessageDialog(null, "rellene los datos vro"); 
+                               }
+                            } 
                         %> 
                         <div class="container bg-white mt-3 py-2 rounded">
                             <div class="col-md-12">
@@ -287,7 +292,7 @@
                                             <td><%=con.rs.getString("apellido")%> </td>
                                             <td><%=con.rs.getString("dni")%> </td>
                                             <%
-                                                if ("Masculino".equals(con.rs.getString("genero"))) { %>
+                                                if ("1".equals(con.rs.getString("genero"))) { %>
                                             <td class="icon centrado" ><i class="fas fa-male fa-lg text-primary"></i></td>
                                                 <%    } else { %>
                                             <td class="icon centrado" ><i class="fas fa-female fa-lg text-danger"></i></td>
@@ -328,7 +333,7 @@
                             </div> 
                         </div>    
                     </div>
-                                    
+
                     <!-- FINALIZA EL CONTENIDO XD -->
 
                 </div>
@@ -344,7 +349,7 @@
             </div>
 
         </div>
-                                    
+
         <script src="../js/jquery.js" type="text/javascript"></script>
         <script src="../vendor/jquery/jquery.min.js"></script>
         <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
