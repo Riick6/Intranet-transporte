@@ -28,5 +28,26 @@ public class CRUD extends Conexion {
                     "ERROR no se puede insertar " + ex);
         }
     }
+    
+    public void InsertarChofer(Chofer cho) {
+        try {
+            String sqlInsert = "INSERT INTO chofer(id_chofer,dni,nombre,apellido,genero,edad,celular,email) VALUES (?,?,?,?,?,?,?,?);";
+            ps = con.prepareStatement(sqlInsert);
+            ps.setString(1, cho.getId_chofer());
+            ps.setString(2, cho.getDni());
+            ps.setString(3, cho.getNombre());
+            ps.setString(4, cho.getApellido());
+            ps.setString(5, cho.getSexo());
+            ps.setInt(6, cho.getEdad());
+            ps.setString(7, cho.getCelular());
+            ps.setString(8, cho.getEmail());
+            ps.executeUpdate();
+
+        } catch (Exception ex) {
+            System.out.println("ERRRRORRR");
+            JOptionPane.showMessageDialog(null,
+                    "ERROR no se puede insertar " + ex);
+        }
+    }
 
 }

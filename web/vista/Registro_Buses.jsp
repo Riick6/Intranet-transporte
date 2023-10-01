@@ -1,5 +1,7 @@
 
+<%@page import="BaseDatos.Conexion"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
 
@@ -28,7 +30,7 @@
                     <div class="sidebar-brand-icon ">
                         <img src="../img/intranet_icono.png" alt="Icono" class="img-fluid ">
                     </div>
-                    <div class="sidebar-brand-text mx-3 my-1">Curious Agency S.A</div>
+                    <div class="sidebar-brand-text mx-3 my-1">Curious Agency</div>
                 </a>
 
                 <hr class="sidebar-divider my-1">
@@ -152,7 +154,29 @@
                     </nav>
 
                     <!-- CONTENIDO DE LA VENTANA -->
-                    <H1>REGISTRO BUSES</H1>
+                    <div class="container ">
+                        <div class="container bg-white rounded">
+                            <ul class="nav nav-tabs my-3">
+                                <li class="nav-item">
+                                    <a class="nav-link active" data-toggle="tab" href="#registro-bus">REGISTRAR BUS</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="tab" href="#lista-buses">LISTA DE BUSES</a>
+                                </li>
+                            </ul>
+
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="registro-bus">
+                                    <h3>Contenido REGISTRO</h3>
+                                    
+                                </div>
+                                <div class="tab-pane" id="lista-buses">
+                                    <h3>Contenido LISTA</h3>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <!-- FINALIZA EL CONTENIDO XD -->
 
                 </div>

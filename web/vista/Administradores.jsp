@@ -38,7 +38,7 @@
                     <div class="sidebar-brand-icon ">
                         <img src="../img/intranet_icono.png" alt="Icono" class="img-fluid ">
                     </div>
-                    <div class="sidebar-brand-text mx-3 my-1">Curious Agency S.A</div>
+                    <div class="sidebar-brand-text mx-3 my-1">Curious Agency </div>
                 </a>
 
                 <hr class="sidebar-divider my-1">
@@ -263,7 +263,7 @@
                                     crud.InsertarAdministrador(adm);
                                     response.sendRedirect("Administradores.jsp");
                                 } else {
-                                    JOptionPane.showMessageDialog(null, "rellene los datos vro"); 
+                                    JOptionPane.showMessageDialog(null, "rellene todos los datos"); 
                                }
                             } 
                         %> 

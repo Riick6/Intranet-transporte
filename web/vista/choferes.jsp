@@ -1,5 +1,15 @@
 
+<%@page import="BaseDatos.Conexion"%>
+<%@page import="javax.swing.JOptionPane"%>
+<%@page import="BaseDatos.CRUD"%>
+<%@page import="Modelo.Chofer"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+<%
+    Conexion con = new Conexion();
+    con.rs = con.smt.executeQuery("select id_chofer,dni, nombre, apellido, genero, edad, celular, email from chofer; ");
+%>
+
 <!DOCTYPE html>
 <html>
 
@@ -28,7 +38,7 @@
                     <div class="sidebar-brand-icon ">
                         <img src="../img/intranet_icono.png" alt="Icono" class="img-fluid ">
                     </div>
-                    <div class="sidebar-brand-text mx-3 my-1">Curious Agency S.A</div>
+                    <div class="sidebar-brand-text mx-3 my-1">Curious Agency </div>
                 </a>
 
                 <hr class="sidebar-divider my-1">
@@ -152,7 +162,178 @@
                     </nav>
 
                     <!-- CONTENIDO DE LA VENTANA -->
-                    <H1>CHOFERES</H1>
+                    <div class="container">
+                        <form action="" method="POST">
+                            <div class="container bg-white py-2 my-2 rounded">
+                                <div class="h6">
+                                    <i class="fas fa-drivers-license fa-sm fa-fw mr-2 "></i>REGISTRAR CHOFER
+                                </div>
+                                <hr class="mt-0">
+                                <!-- Columnas-->
+                                <div class="row">
+                                    <!-- Columna de la imagen -->
+                                    <div class="col-lg-4 col-md-6 col-sm-12">
+                                        <div class="row">
+                                            <img src="../img/chofer.png" alt="Icono" class="img-fluid ">
+                                        </div>
+                                    </div>
+
+                                    <!-- Columna DATOS -->
+                                    <div class="col-lg-4 col-md-6 col-sm-12">
+
+                                        <div class="mb-3">
+                                            <label for="id-chofer" class="form-label">ID Chofer</label>
+                                            <input type="text" name="id_chofer" class="form-control" placeholder="Ingrese el ID..." id="id-chofer" >
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="dni-chofer" class="form-label">DNI</label>
+                                            <input type="text" name="dni" class="form-control" placeholder="Ingrese su DNI..." id="dni-chofer" >
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="mb-3">
+                                                    <label for="nombre-chofer" class="form-label" >Nombre</label>
+                                                    <input type="text" name="nombre" class="form-control" placeholder="Nombre..." id="nombre-chofer">
+                                                </div> 
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="mb-3">
+                                                    <label for="apellido-chofer" class="form-label" >Apellido</label>
+                                                    <input type="text" name="apellido" class="form-control" placeholder="Apellido..." id="apellido-chofer">
+                                                </div> 
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="mb-3">
+                                                    <label for="celular-chofer" class="form-label" >Celular</label>
+                                                    <input type="text" name="celular" class="form-control" placeholder="Celular..." id="celular-chofer">
+                                                </div> 
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="mb-3">
+                                                    <label for="edad-chofer" class="form-label" >Edad</label>
+                                                    <input type="text" name="edad" class="form-control" placeholder="Edad..." id="edad-chofer">
+                                                </div> 
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-4 col-md-6 col-sm-12">
+                                        <div class="mb-3">
+                                            <label for="email-chofer" class="form-label">Correo Electrónico</label>
+                                            <input type="email" name="email" class="form-control" id="email-chofer" placeholder="correo@gmail.com">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label" >Sexo</label>
+                                            <select name="genero" class="form-control form-select-sm bg-light selector text-muted rounded" >
+                                                <option value="1">Masculino</option>
+                                                <option value="2">Femenino</option>
+                                            </select>
+                                            <input type="submit" name="guardar-chofer" value="Guardar" class="btn btn-success mt-4 w-100"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> 
+                        </form>
+                        <%
+                            if (request.getParameter("guardar-chofer") != null) {
+                                String id_chofer = request.getParameter("id_chofer");
+                                String nombre = request.getParameter("nombre");
+                                String apellido = request.getParameter("apellido");
+                                String dni = request.getParameter("dni");
+                                String genero = request.getParameter("genero");
+                                String edad = request.getParameter("edad");
+                                String celular = request.getParameter("celular");
+                                String email = request.getParameter("email");
+
+                                if (id_chofer != null && nombre != null && apellido != null && dni != null && genero != null && edad != null && celular != null && email != null) {
+
+                                    Chofer cho = new Chofer();
+                                    cho.setId_chofer(id_chofer);
+                                    cho.setNombre(nombre);
+                                    cho.setApellido(apellido);
+                                    cho.setDni(dni);
+                                    cho.setSexo(genero);
+                                    cho.setEdad(Integer.parseInt(edad));
+                                    cho.setCelular(celular);
+                                    cho.setEmail(email);
+
+                                    CRUD crud = new CRUD();
+                                    crud.InsertarChofer(cho);
+                                    response.sendRedirect("Choferes.jsp");
+                                }else {
+                                JOptionPane.showMessageDialog(null, "Rellene todos los datos");
+                            }
+                            } 
+                        %> 
+                        <div class="container bg-white mt-3 py-2 rounded">
+                            <div class="col-md-12">
+                                <h2>Listado Administradores</h2>
+                                <table class="table table-striped table-hover table-bordered text-center">
+                                    <thead class="table-dark">
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Nombre</th>
+                                            <th>Apellido</th>
+                                            <th>DNI</th>
+                                            <th>Género</th>
+                                            <th>Edad</th>
+                                            <th>Celular</th>
+                                            <th>Email</th>
+                                            <th>Opciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% while (con.rs.next()) {%>
+                                        <tr>
+                                            <td class="text-center"><%=con.rs.getString("id_chofer")%> </td>
+                                            <td><%=con.rs.getString("nombre")%> </td>
+                                            <td><%=con.rs.getString("apellido")%> </td>
+                                            <td><%=con.rs.getString("dni")%> </td>
+                                            <%
+                                                if ("1".equals(con.rs.getString("genero"))) { %>
+                                            <td class="icon centrado" ><i class="fas fa-male fa-lg text-primary"></i></td>
+                                                <%    } else { %>
+                                            <td class="icon centrado" ><i class="fas fa-female fa-lg text-danger"></i></td>
+                                                <%    }
+                                                %>
+
+                                            <td><%=con.rs.getInt("edad")%> </td>
+                                            <td><%=con.rs.getString("celular")%> </td>
+                                            <td><%=con.rs.getString("email")%> </td>
+                                            <td class="text-center">
+                                                <button type="button" class="btn btn-success"><i class="fas fa-edit"></i></button>
+                                                <button type="button" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                            </td>
+                                        </tr>
+                                        <% }%>
+                                    </tbody>
+                                </table>
+                                <div class="pagination-container d-flex justify-content-between align-items-center">
+                                    <div class="pagination-info">
+                                        Mostrando página 1 de 4
+                                    </div>
+                                    <nav aria-label="Paginacion-control">
+                                        <ul class="pagination">
+                                            <li class="page-item">
+                                                <a class="page-link" href="#">Previous</a>
+                                            </li>
+                                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                            <li class="page-item active" aria-current="page">
+                                                <a class="page-link" href="#">2</a>
+                                            </li>
+                                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                            <li class="page-item">
+                                                <a class="page-link" href="#">Next</a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div> 
+                        </div>    
+                    </div>
                     <!-- FINALIZA EL CONTENIDO XD -->
 
                 </div>
