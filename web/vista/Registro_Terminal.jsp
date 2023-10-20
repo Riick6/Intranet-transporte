@@ -1,5 +1,16 @@
 
+
+<%@page import="javax.swing.JOptionPane"%>
+<%@page import="DAO.*"%>
+<%@page import="Modelo.*" %>
+<%@page import="java.sql.*" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+<%
+    Conexion con = new Conexion();
+    con.rs = con.smt.executeQuery("select id_estado, id_terminal, nombre_terminal, direccion from terminal; ");
+%>
+
 <!DOCTYPE html>
 <html>
 
@@ -152,7 +163,146 @@
                     </nav>
 
                     <!-- CONTENIDO DE LA VENTANA -->
-                    <H1>REGISTRO TERMINAL</H1>
+                    <div class="container">
+                        <form name="formTerminal" action="Registro_Terminal.jsp" method="POST">
+                            <div class="container bg-white py-2 my-2 rounded">
+                                <div class="h6">
+                                    <i class="fas fa-bus fa-sm fa-fw mr-2 "></i>REGISTRAR TERMINAL
+                                </div>
+                                <hr class="mt-0">
+                                <!-- Columnas-->
+                                <div class="row">
+                                    <!-- Columna de la imagen -->
+                                    <div class="col-lg-4 col-md-6 col-sm-12">
+                                        <div class="row">
+                                            <img src="../img/terminal.png" alt="Icono" class="img-fluid w-75">
+                                        </div>
+                                    </div>
+
+                                    <!-- Columna DATOS -->
+                                    <div class="col-lg-4 col-md-6 col-sm-12">
+                                        <div class="mb-3">
+                                            <label for="id-terminal" class="form-label">ID</label>
+                                            <input type="text" name="id-ter" class="form-control" placeholder="Ingrese el ID..." id="id-terminal" >
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label class="form-label" >Estado</label>
+                                            <select name="estado-ter" class="form-control form-select-sm bg-light selector text-muted rounded" >
+                                                <%
+                                                    Conexion con2 = new Conexion();
+                                                    ResultSet Estado = con2.smt.executeQuery(
+                                                            "select id_estado,descripcion from estado;");
+                                                    while (Estado.next()) {%>
+                                                <option value="<%=Estado.getString("id_estado")%>">
+                                                    <%=Estado.getString("descripcion")%>                                                                    
+                                                </option> 
+                                                <%  }  %>
+                                            </select>
+
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="nombre-terminal" class="form-label">Nombre Terminal</label>
+                                            <input type="text" name="nombre-ter" class="form-control" placeholder="Ingrese el nombre..." id="nombre-terminal" >
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-4 col-md-6 col-sm-12">
+                                        <div class="mb-3">
+                                            <label for="direccion-terminal" class="form-label">Direccion</label>
+                                            <textarea class="form-control" name="direccion-ter" id="direccion-terminal" rows="2"></textarea>
+                                        </div>
+                                        <input type="submit" name="exportar-terminal" value="Exportar PDF" class="btn btn-danger mt-4 w-100"/>
+                                        <input type="submit" name="guardar-terminal" value="Guardar" class="btn btn-success mt-4 w-100"/>
+                                    </div>
+                                </div>
+                            </div> 
+                        </form>
+                        <%
+                            if (request.getParameter("guardar-terminal") != null) {
+                                String id_terminal = request.getParameter("id-ter");
+                                String id_estado = request.getParameter("estado-ter");
+                                String nombre_terminal = request.getParameter("nombre-ter");
+                                String direccion_terminal = request.getParameter("direccion-ter");
+
+                                if (id_terminal != null && id_estado != null && nombre_terminal != null && direccion_terminal != null) {
+
+                                    Terminal ter = new Terminal();
+                                    ter.setNombre_terminal(nombre_terminal);
+                                    ter.setDireccion(direccion_terminal);
+                                    ter.setId_estado(Integer.parseInt(id_estado));
+                                    ter.setId_terminal(Integer.parseInt(id_terminal));
+
+                                    CRUD crud = new CRUD();
+                                    crud.InsertarTerminal(ter);
+                                    response.sendRedirect("Registro_Terminal.jsp");
+                                } else {
+                                    JOptionPane.showMessageDialog(null, "rellene todos los datos");
+                                }
+                            }
+                        %> 
+                        <div class="container bg-white mt-3 py-2 rounded">
+                            <div class="col-md-12">
+                                <h2>Terminales</h2>
+                                <table class="table table-striped table-hover table-bordered text-center">
+                                    <thead class="table-dark">
+                                        <tr>
+                                            <th>Estado</th>
+                                            <th>ID</th>
+                                            <th>Nombre</th>
+                                            <th>Direccion</th>
+                                            <th>Opciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% while (con.rs.next()) {%>
+                                        <tr>
+                                            <td class="icon centrado">
+                                                <button class="estado-button btn
+                                                        <% if (con.rs.getString("id_estado").equals("1")) { %>
+                                                        btn-success
+                                                        <% } else { %>
+                                                        btn-danger
+                                                        <% }%>"
+                                                        >
+                                                    <%= con.rs.getString("id_estado").equals("1") ? "Activo" : "Inactivo"%>
+                                                </button>
+                                            </td>
+                                            <td class="text-center"><%=con.rs.getString("id_terminal")%> </td>
+                                            <td><%=con.rs.getString("nombre_terminal")%> </td>
+                                            <td><%=con.rs.getString("direccion")%> </td>
+
+                                            <td class="text-center">
+                                                <button type="button" class="btn btn-success"><i class="fas fa-edit"></i></button>
+                                                <button type="button" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                            </td>
+                                        </tr>
+                                        <% }%>
+                                    </tbody>
+                                </table>
+                                <div class="pagination-container d-flex justify-content-between align-items-center">
+                                    <div class="pagination-info">
+                                        Mostrando página 1 de 4
+                                    </div>
+                                    <nav aria-label="Paginacion-control">
+                                        <ul class="pagination">
+                                            <li class="page-item">
+                                                <a class="page-link" href="#">Previous</a>
+                                            </li>
+                                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                            <li class="page-item active" aria-current="page">
+                                                <a class="page-link" href="#">2</a>
+                                            </li>
+                                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                            <li class="page-item">
+                                                <a class="page-link" href="#">Next</a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div> 
+                        </div>    
+                    </div>
                     <!-- FINALIZA EL CONTENIDO XD -->
 
                 </div>
@@ -168,7 +318,6 @@
             </div>
 
         </div>
-
         <script src="../vendor/jquery/jquery.min.js"></script>
         <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 

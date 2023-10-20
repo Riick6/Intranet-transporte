@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    
+    <servlet>
+        <servlet-name>EditarChofer</servlet-name>
+        <servlet-class>Controlador.EditarChofer</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EditarChofer</servlet-name>
+        <url-pattern>/EditarChofer</url-pattern>
+    </servlet-mapping>
+    
+    
+    <servlet>
+        <servlet-name>EditarAdministradorServlet</servlet-name>
+        <servlet-class>Controlador.EditarAdministradorServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>EditarAdministradorServlet</servlet-name>
+        <url-pattern>/EditarAdministradorServlet</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>EditarBus</servlet-name>
+        <servlet-class>Controlador.EditarBus</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>EditarBus</servlet-name>
+        <url-pattern>/EditarBus</url-pattern>
+    </servlet-mapping>
+    
+    
+    <servlet>
+        <servlet-name>EliminarAdministrador</servlet-name>
+        <servlet-class>Controlador.EliminarAdministrador</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>EliminarAdministrador</servlet-name>
+        <url-pattern>/EliminarAdministrador</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>EliminarChofer</servlet-name>
+        <servlet-class>Controlador.EliminarChofer</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>EliminarChofer</servlet-name>
+        <url-pattern>/EliminarChofer</url-pattern>
+    </servlet-mapping>
+    
+    
+    <servlet>
+        <servlet-name>EliminarBus</servlet-name>
+        <servlet-class>Controlador.EliminarBus</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>EliminarBus</servlet-name>
+        <url-pattern>/EliminarBus</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>srvUsuario</servlet-name>
+        <servlet-class>Controlador.srvUsuario</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PruebaConexion</servlet-name>
+        <servlet-class>Controlador.PruebaConexion</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Prueba</servlet-name>
+        <servlet-class>Controlador.Prueba</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ControlLogin</servlet-name>
+        <servlet-class>Controlador.ControlLogin</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>srvUsuario</servlet-name>
+        <url-pattern>/srvUsuario</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PruebaConexion</servlet-name>
+        <url-pattern>/PruebaConexion</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Prueba</servlet-name>
+        <url-pattern>/Prueba</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ControlLogin</servlet-name>
+        <url-pattern>/ControlLogin</url-pattern>
+    </servlet-mapping>
+
+    
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+</web-app>

@@ -3,7 +3,7 @@ package Modelo;
 
 
 public class Administrador {
-    private String id_administrador;
+    private int id_administrador;
     private String nombre;
     private String apellido;
     private String dni;
@@ -13,11 +13,11 @@ public class Administrador {
     private String correo;
     private String contra;
 
-    public String getId_administrador() {
+    public int getId_administrador() {
         return id_administrador;
     }
 
-    public void setId_administrador(String id_administrador) {
+    public void setId_administrador(int id_administrador) {
         this.id_administrador = id_administrador;
     }
 

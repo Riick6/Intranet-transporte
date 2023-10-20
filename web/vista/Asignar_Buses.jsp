@@ -1,5 +1,16 @@
 
+<%@page import="javax.swing.JOptionPane"%>
+<%@page import="DAO.CRUD"%>
+<%@page import="Modelo.Chofer_Bus"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="DAO.Conexion"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+<%
+    Conexion con = new Conexion();
+    con.rs = con.smt.executeQuery("select id_estado, placa, c.id_chofer, id_tipo  from bus_chofer bc INNER JOIN chofer c ON c.id_chofer = bc.id_chofer; ");
+%>
+
 <!DOCTYPE html>
 <html>
 
@@ -152,7 +163,175 @@
                     </nav>
 
                     <!-- CONTENIDO DE LA VENTANA -->
-                    <H1>ASIGNAR BUSES</H1>
+                    <div class="container">
+                        <form name="formChobus" action="Asignar_Buses.jsp" method="POST">
+                            <div class="container bg-white py-2 my-2 rounded">
+                                <div class="h6">
+                                    <i class="fas fa-bus fa-sm fa-fw mr-2 "></i>ASIGNAR CHOFER A BUS
+                                </div>
+                                <hr class="mt-0">
+                                <!-- Columnas -->
+                                <div class="row">
+                                    <!-- Columna de la imagen -->
+                                    <div class="col-lg-4 col-md-6 col-sm-12">
+                                        <div class="row">
+                                            <img src="../img/bus_chofer.png" alt="Icono" class="img-fluid w-75">
+                                        </div>
+                                    </div>
+
+                                    <!-- Columna DATOS -->
+                                    <div class="col-lg-4 col-md-6 col-sm-12">
+                                        <div class="mb-3">
+                                            <label class="form-label" >Estado</label>
+                                            <select name="estado-chobu" class="form-control form-select-sm bg-light selector text-muted rounded" >
+                                                <%
+                                                    Conexion con2 = new Conexion();
+                                                    ResultSet Estado = con2.smt.executeQuery(
+                                                            "select id_estado,descripcion from estado;");
+                                                    while (Estado.next()) {%>
+                                                <option value="<%=Estado.getString("id_estado")%>">
+                                                    <%=Estado.getString("descripcion")%>                                                                    
+                                                </option> 
+                                                <%  }  %>
+                                            </select>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label" >Tipo de Bus</label>
+                                            <select name="tipo-chobu" class="form-control form-select-sm bg-light selector text-muted rounded" >
+                                                <%
+                                                    Conexion con3 = new Conexion();
+                                                    ResultSet tipo = con3.smt.executeQuery(
+                                                            "select id_tipo,nombre_tipo from tipo_bus;");
+                                                    while (tipo.next()) {%>
+                                                <option value="<%=tipo.getString("id_tipo")%>">
+                                                    <%=tipo.getString("nombre_tipo")%>                                                                    
+                                                </option> 
+                                                <%  }  %>
+                                            </select>
+                                        </div>
+                                            <input type="submit" name="exportar-chobu" value="Exportar PDF" class="btn btn-danger mt-4 w-100"/>
+                                    </div>
+
+                                    <div class="col-lg-4 col-md-6 col-sm-12">
+                                        <div class="mb-3">
+                                            <label class="form-label" >Bus</label>
+                                            <select name="bus-chobu" class="form-control form-select-sm bg-light selector text-muted rounded" >
+                                                <%
+                                                    Conexion con4 = new Conexion();
+                                                    ResultSet placa = con4.smt.executeQuery(
+                                                            "select placa, tarjeta_circulacion from bus;");
+                                                    while (placa.next()) {%>
+                                                <option value="<%=placa.getString("placa")%>">
+                                                    <%=placa.getString("placa")%>                                                                    
+                                                </option> 
+                                                <%  }  %>
+                                            </select>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label" >Chofer</label>
+                                            <select name="chofer-chobu" class="form-control form-select-sm bg-light selector text-muted rounded" >
+                                                <%
+                                                    Conexion con5 = new Conexion();
+                                                    ResultSet chofer = con5.smt.executeQuery(
+                                                            "select id_chofer, CONCAT(nombre, ' ', apellido) AS nombres from chofer;");
+                                                    while (chofer.next()) {%>
+                                                <option value="<%=chofer.getString("id_chofer")%>">
+                                                    <%=chofer.getString("nombres")%>                                                                    
+                                                </option> 
+                                                <%  }  %>
+                                            </select>
+                                        </div>
+                                        <input type="submit" name="guardar-chobu" value="Guardar" class="btn btn-success mt-4 w-100"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+
+                        <%
+                            if (request.getParameter("guardar-chobu") != null) {
+                                String estado_chobu = request.getParameter("estado-chobu");
+                                String tipo_chobu = request.getParameter("tipo-chobu");
+                                String bus_chobu = request.getParameter("bus-chobu");
+                                String chofer_chobu = request.getParameter("chofer-chobu");
+
+                                if (estado_chobu != null && tipo_chobu != null && bus_chobu != null && chofer_chobu != null) {
+
+                                    Chofer_Bus chobu = new Chofer_Bus();
+                                    chobu.setId_estado(Integer.parseInt(estado_chobu));
+                                    chobu.setId_chofer(Integer.parseInt(chofer_chobu));
+                                    chobu.setPlaca(bus_chobu);
+                                    chobu.setId_tipo(Integer.parseInt(tipo_chobu));
+
+                                    CRUD crud = new CRUD();
+                                    crud.InsertarChobu(chobu);
+                                    response.sendRedirect("Asignar_Buses.jsp");
+                                } else {
+                                    JOptionPane.showMessageDialog(null, "rellene todos los datos");
+                                }
+                            }
+                        %> 
+                        <div class="container bg-white mt-3 py-2 rounded">
+                            <div class="col-md-12">
+                                <h2>Terminales</h2>
+                                <table class="table table-striped table-hover table-bordered text-center">
+                                    <thead class="table-dark">
+                                        <tr>
+                                            <th>Estado</th>
+                                            <th>Chofer</th>
+                                            <th>Placa Bus</th>
+                                            <th>Tipo</th>
+                                            <th>Opciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% while (con.rs.next()) {%>
+                                        <tr>
+                                            <td class="icon centrado">
+                                                <button class="estado-button btn
+                                                        <% if (con.rs.getString("id_estado").equals("1")) { %>
+                                                        btn-success
+                                                        <% } else { %>
+                                                        btn-danger
+                                                        <% }%>"
+                                                        >
+                                                    <%= con.rs.getString("id_estado").equals("1") ? "Activo" : "Inactivo"%>
+                                                </button>
+                                            </td>
+                                            <td class="text-center"><%=con.rs.getString("id_chofer")%> </td>
+                                            <td><%=con.rs.getString("placa")%> </td>
+                                            <td><%=con.rs.getString("id_tipo")%> </td>
+
+                                            <td class="text-center col-2">
+                                                <button type="button" class="btn btn-success"><i class="fas fa-edit"></i></button>
+                                                <button type="button" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                            </td>
+                                        </tr>
+                                        <% }%>
+                                    </tbody>
+                                </table>
+                                <div class="pagination-container d-flex justify-content-between align-items-center">
+                                    <div class="pagination-info">
+                                        Mostrando página 1 de 4
+                                    </div>
+                                    <nav aria-label="Paginacion-control">
+                                        <ul class="pagination">
+                                            <li class="page-item">
+                                                <a class="page-link" href="#">Previous</a>
+                                            </li>
+                                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                            <li class="page-item active" aria-current="page">
+                                                <a class="page-link" href="#">2</a>
+                                            </li>
+                                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                            <li class="page-item">
+                                                <a class="page-link" href="#">Next</a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div> 
+                        </div>    
+                    </div>
                     <!-- FINALIZA EL CONTENIDO XD -->
 
                 </div>

@@ -1,5 +1,14 @@
-
+<%@page import="javax.swing.JOptionPane"%>
+<%@page import="DAO.*"%>
+<%@page import="Modelo.*" %>
+<%@page import="java.sql.*" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+<%
+    Conexion con = new Conexion();
+    con.rs = con.smt.executeQuery("select id_tabla, asunto, descripcion from quejas; ");
+%>
+
 <!DOCTYPE html>
 <html>
 
@@ -152,7 +161,107 @@
                     </nav>
 
                     <!-- CONTENIDO DE LA VENTANA -->
-                    <H1>QUEJAS</H1>
+                    <div class="container">
+                        <form name="formqueja" action="Quejas.jsp" method="POST">
+                            <div class="container bg-white py-2 my-2 rounded">
+                                <div class="h6">
+                                    <i class="fas fa-angry fa-sm fa-fw mr-2 "></i>REGISTRO DE QUEJAS Y RECLAMOS
+                                </div>
+                                <hr class="mt-0">
+                                <!-- Columnas-->
+                                <div class="row">
+                                    <!-- Columna de la imagen -->
+                                    <div class="col-lg-4 col-md-6 col-sm-12">
+                                        <div class="row">
+                                            <img src="../img/queja.jpg" alt="Icono" class="img-fluid ">
+                                        </div>
+                                    </div>
+
+                                    <!-- Columna DATOS -->
+                                    <div class="col-lg-8 col-md-6 col-sm-12">
+                                        <div class="mb-2">
+                                            <label for="asunto-queja" class="form-label">ASUNTO</label>
+                                            <input type="text" name="asunto" class="form-control" placeholder="Ingrese el asunto">
+                                            <br>
+                                            <div class="mb-3">
+                                                <label for="descripcion" class="form-label">Descripcion</label>
+                                                <textarea class="form-control" placeholder="Ingrese Descripcion.." name="descripcion" id="descripcion" rows="2"></textarea>
+                                            </div>
+                                        </div>
+                                        <input type="submit" name="guardar-queja" value="Guardar" class="btn btn-success mt-4 w-100"/>
+                                        <input type="submit" name="exportar-queja" value="Exportar PDF" class="btn btn-danger mt-4 w-100"/>
+                                    </div>
+                                </div>
+                            </div>
+                    </div> 
+                    </form>
+                    <%
+                        if (request.getParameter("guardar-queja") != null) {
+                            String asunto = request.getParameter("asunto");
+                            String descripcion = request.getParameter("descripcion");
+
+                            if (asunto != null && descripcion != null) {
+
+                                Queja que = new Queja();
+                                que.setAsunto(asunto);
+                                que.setDesc(descripcion);
+
+                                CRUD crud = new CRUD();
+                                crud.InsertarQueja(que);
+                                response.sendRedirect("Quejas.jsp");
+                            } else {
+                                JOptionPane.showMessageDialog(null, "rellene todos los datos");
+                            }
+                        }
+                    %> 
+                    <div class="container bg-white mt-3 py-2 rounded">
+                        <div class="col-md-12">
+                            <h2>Listado de Quejas y reclamos</h2>
+                            <table class="table table-striped table-hover table-bordered text-center">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Asunto</th>
+                                        <th>Descripción</th>
+                                        <th>Opciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% while (con.rs.next()) {%>
+                                    <tr>
+                                        <td class="text-center"><%=con.rs.getString("id_tabla")%> </td>
+                                        <td><%=con.rs.getString("asunto")%> </td>
+                                        <td><%=con.rs.getString("descripcion")%> </td>
+                                        <td class="text-center col-2">
+                                            <button type="button" class="btn btn-success"><i class="fas fa-edit"></i></button>
+                                            <button type="button" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                        </td>
+                                    </tr>
+                                    <% }%>
+                                </tbody>
+                            </table>
+                            <div class="pagination-container d-flex justify-content-between align-items-center">
+                                <div class="pagination-info">
+                                    Mostrando página 1 de 4
+                                </div>
+                                <nav aria-label="Paginacion-control">
+                                    <ul class="pagination">
+                                        <li class="page-item">
+                                            <a class="page-link" href="#">Previous</a>
+                                        </li>
+                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                        <li class="page-item active" aria-current="page">
+                                            <a class="page-link" href="#">2</a>
+                                        </li>
+                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                        <li class="page-item">
+                                            <a class="page-link" href="#">Next</a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div> 
+                    </div>    
                     <!-- FINALIZA EL CONTENIDO XD -->
 
                 </div>

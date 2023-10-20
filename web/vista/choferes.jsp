@@ -1,7 +1,6 @@
 
-<%@page import="BaseDatos.Conexion"%>
+<%@page import="DAO.*"%>
 <%@page import="javax.swing.JOptionPane"%>
-<%@page import="BaseDatos.CRUD"%>
 <%@page import="Modelo.Chofer"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
@@ -232,6 +231,7 @@
                                                 <option value="2">Femenino</option>
                                             </select>
                                             <input type="submit" name="guardar-chofer" value="Guardar" class="btn btn-success mt-4 w-100"/>
+                                            <input type="submit" name="exportar-chofer" value="Exportar PDF" class="btn btn-danger mt-4 w-100"/>
                                         </div>
                                     </div>
                                 </div>
@@ -263,10 +263,10 @@
                                     CRUD crud = new CRUD();
                                     crud.InsertarChofer(cho);
                                     response.sendRedirect("Choferes.jsp");
-                                }else {
-                                JOptionPane.showMessageDialog(null, "Rellene todos los datos");
+                                } else {
+                                    JOptionPane.showMessageDialog(null, "Rellene todos los datos");
+                                }
                             }
-                            } 
                         %> 
                         <div class="container bg-white mt-3 py-2 rounded">
                             <div class="col-md-12">
@@ -304,8 +304,20 @@
                                             <td><%=con.rs.getString("celular")%> </td>
                                             <td><%=con.rs.getString("email")%> </td>
                                             <td class="text-center">
-                                                <button type="button" class="btn btn-success"><i class="fas fa-edit"></i></button>
-                                                <button type="button" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                                <button type="button" data-bs-toggle="modal" data-bs-target="#editarChoferModal" class="btn btn-success edit-button-chofer "
+                                                        data-id="<%=con.rs.getString("id_chofer")%>"
+                                                        data-dni="<%=con.rs.getString("dni")%>"
+                                                        data-nombre="<%=con.rs.getString("nombre")%>"
+                                                        data-apellido="<%=con.rs.getString("apellido")%>"
+                                                        data-genero="<%=con.rs.getString("genero")%>"
+                                                        data-edad="<%=con.rs.getInt("edad")%>"
+                                                        data-celular="<%=con.rs.getString("celular")%>"
+                                                        data-email="<%=con.rs.getString("email")%>">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                                <button type="button" data-bs-toggle="modal" data-bs-target="#eliminarChofer" data-id="<%=con.rs.getString("id_chofer")%>" class="btn btn-danger delete-button">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
                                             </td>
                                         </tr>
                                         <% }%>
@@ -332,7 +344,97 @@
                                     </nav>
                                 </div>
                             </div> 
-                        </div>    
+                        </div>
+                        <!-- MODAL PARA ELIMINAR -->           
+                        <div class="modal" tabindex="-1" id="eliminarChofer">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Confirmacion </h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Estás seguro que deseas eliminarlo?
+                                        <form id="deleteChoferForm" method="POST" action="../EliminarChofer">
+                                            <input type="hidden" name="id-chofer-delete" id="id-delete-modal" value="">
+                                        </form>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancelar</button>
+                                        <button type="button" class="btn btn-danger" id="confirmarEliminar">Eliminar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- MODAL PARA EDITAR -->
+                        <div class="modal" tabindex="-1" id="editarChoferModal">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Editar Chofer</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form id="editarChoferForm" method="POST" action="../EditarChofer">
+                                            <div class="mb-3">
+                                                <label for="id-modal" class="form-label">ID</label>
+                                                <input type="text" name="id-modal" readonly="" class="form-control" id="id-modal">
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <div class="mb-3">
+                                                        <label for="nombre-modal" class="form-label">Nombre</label>
+                                                        <input type="text" name="nombre-modal" class="form-control" id="nombre-modal">
+                                                    </div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="mb-3">
+                                                        <label for="apellido-modal" class="form-label">Apellido</label>
+                                                        <input type="text" name="apellido-modal" class="form-control" id="apellido-modal">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="dni-modal" class="form-label">DNI</label>
+                                                <input type="text" name="dni-modal" class="form-control" id="dni-modal">
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <div class="mb-3">
+                                                        <label for="genero-modal" class="form-label">Sexo</label>
+                                                        <select name="genero-modal" class="form-control" id="genero-modal">
+                                                            <option value="1">Masculino</option>
+                                                            <option value="2">Femenino</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="mb-3">
+                                                        <label for="edad-modal" class="form-label">Edad</label>
+                                                        <input type="text" name="edad-modal" class="form-control" id="edad-modal">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="celular-modal" class="form-label">Celular</label>
+                                                <input type="text" name="celular-modal" class="form-control" id="celular-modal">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="email-modal" class="form-label">Email</label>
+                                                <input type="text" name="email-modal" class="form-control" id="email-modal">
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancelar</button>
+                                        <input type="submit" value="Guardar Cambios" form="editarChoferForm" class="btn btn-warning"></input>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                     <!-- FINALIZA EL CONTENIDO XD -->
 
@@ -350,9 +452,12 @@
 
         </div>
 
+        
         <script src="../vendor/jquery/jquery.min.js"></script>
         <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
         <script src="../js/sb-admin-2.min.js"></script>
+        <script src="../js/mostrardatos.js" type="text/javascript"></script>
     </body>
 </html>
