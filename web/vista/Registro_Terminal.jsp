@@ -273,8 +273,16 @@
                                             <td><%=con.rs.getString("direccion")%> </td>
 
                                             <td class="text-center">
-                                                <button type="button" class="btn btn-success"><i class="fas fa-edit"></i></button>
-                                                <button type="button" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                                <button type="button" data-bs-toggle="modal" data-bs-target="#editarTerminalModal" class="btn btn-success edit-button-terminal "
+                                                        data-id="<%=con.rs.getString("id_terminal")%>"
+                                                        data-estado="<%=con.rs.getString("id_estado")%>"
+                                                        data-nombre="<%=con.rs.getString("nombre_terminal")%>"
+                                                        data-direccion="<%=con.rs.getString("direccion")%>">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                                <button type="button" data-bs-toggle="modal" data-bs-target="#eliminarTerminal" data-id="<%=con.rs.getString("id_terminal")%>" class="btn btn-danger delete-button-terminal">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
                                             </td>
                                         </tr>
                                         <% }%>
@@ -301,7 +309,82 @@
                                     </nav>
                                 </div>
                             </div> 
-                        </div>    
+                        </div> 
+
+                        <!-- MODAL PARA ELIMINAR -->           
+                        <div class="modal" tabindex="-1" id="eliminarTerminal">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Confirmacion </h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Estás seguro que deseas eliminarlo?
+                                        <form id="deleteTerminalForm" method="POST" action="../EliminarTerminal">
+                                            <input type="hidden" name="id-terminal-delete" id="id-delete-modal" value="">
+                                        </form>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancelar</button>
+                                        <button type="button" class="btn btn-danger" id="confirmarEliminar">Eliminar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- MODAL PARA EDITAR -->
+                        <div class="modal" tabindex="-1" id="editarTerminalModal">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Editar Terminal</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form id="editarTerminalForm" method="POST" action="../EditarTerminal">
+                                            <div class="mb-3">
+                                                <label for="id-modal" class="form-label">ID</label>
+                                                <input type="text" name="id-modal" readonly="" class="form-control" id="id-modal">
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <div class="mb-3">
+                                                        <label for="nombre-modal" class="form-label">Nombre Terminal</label>
+                                                        <input type="text" name="nombre-modal" class="form-control" id="nombre-modal">
+                                                    </div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="mb-3">
+                                                        <label for="direccion-modal" class="form-label">Direccion</label>
+                                                        <textarea class="form-control" placeholder="Ingrese Descripcion.." name="direccion-modal" id="direccion-modal" rows="2"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label" >Estado</label>
+                                                <select name="estado-modal" class="form-control form-select-sm bg-light selector text-muted rounded" >
+                                                    <%
+                                                        Conexion con3 = new Conexion();
+                                                        ResultSet Estados = con3.smt.executeQuery(
+                                                                "select id_estado,descripcion from estado;");
+                                                        while (Estados.next()) {%>
+                                                    <option value="<%=Estados.getString("id_estado")%>">
+                                                        <%=Estados.getString("descripcion")%>                                                                    
+                                                    </option> 
+                                                    <%  }%>
+                                                </select>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                        <input type="submit" value="Guardar Cambios" form="editarTerminalForm" class="btn btn-success"></input>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <!-- FINALIZA EL CONTENIDO XD -->
 
@@ -320,7 +403,9 @@
         </div>
         <script src="../vendor/jquery/jquery.min.js"></script>
         <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
         <script src="../js/sb-admin-2.min.js"></script>
+        <script src="../js/queja-script.js" type="text/javascript"></script>
     </body>
 </html>

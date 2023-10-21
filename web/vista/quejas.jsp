@@ -233,8 +233,15 @@
                                         <td><%=con.rs.getString("asunto")%> </td>
                                         <td><%=con.rs.getString("descripcion")%> </td>
                                         <td class="text-center col-2">
-                                            <button type="button" class="btn btn-success"><i class="fas fa-edit"></i></button>
-                                            <button type="button" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                            <button type="button" data-bs-toggle="modal" data-bs-target="#editarQuejaModal" class="btn btn-success edit-button-queja "
+                                                    data-id="<%=con.rs.getString("id_tabla")%>"
+                                                    data-asunto="<%=con.rs.getString("asunto")%>"
+                                                    data-descripcion="<%=con.rs.getString("descripcion")%>">
+                                                    <i class="fas fa-edit"></i>
+                                            </button>
+                                            <button type="button" data-bs-toggle="modal" data-bs-target="#eliminarQueja" data-id="<%=con.rs.getString("id_tabla")%>" class="btn btn-danger delete-button-queja">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
                                         </td>
                                     </tr>
                                     <% }%>
@@ -260,6 +267,68 @@
                                     </ul>
                                 </nav>
                             </div>
+
+
+                            <!-- MODAL PARA ELIMINAR -->           
+                            <div class="modal" tabindex="-1" id="eliminarQueja">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Confirmacion </h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Estás seguro que deseas eliminarlo?
+                                            <form id="deleteQuejaForm" method="POST" action="../EliminarQueja">
+                                                <input type="hidden" name="id-queja-delete" id="id-delete-modal" value="">
+                                            </form>
+
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancelar</button>
+                                            <button type="button" class="btn btn-danger" id="confirmarEliminar">Eliminar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- MODAL PARA EDITAR -->
+                            <div class="modal" tabindex="-1" id="editarQuejaModal">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Editar Queja</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form id="editarQuejaForm" method="POST" action="../EditarQueja">
+                                                <div class="mb-3">
+                                                    <label for="id-modal" class="form-label">ID</label>
+                                                    <input type="text" name="id-modal" readonly="" class="form-control" id="id-modal">
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-6">
+                                                        <div class="mb-3">
+                                                            <label for="asunto-modal" class="form-label">Asunto</label>
+                                                            <input type="text" name="asunto-modal" class="form-control" id="asunto-modal">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <div class="mb-3">
+                                                            <label for="descripcion-modal" class="form-label">Descripcion</label>
+                                                            <textarea class="form-control" placeholder="Ingrese Descripcion.." name="descripcion-modal" id="descripcion-modal" rows="4"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancelar</button>
+                                            <input type="submit" value="Guardar Cambios" form="editarQuejaForm" class="btn btn-warning"></input>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div> 
                     </div>    
                     <!-- FINALIZA EL CONTENIDO XD -->
@@ -280,7 +349,9 @@
 
         <script src="../vendor/jquery/jquery.min.js"></script>
         <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
         <script src="../js/sb-admin-2.min.js"></script>
+        <script src="../js/queja-script.js" type="text/javascript"></script>
     </body>
 </html>

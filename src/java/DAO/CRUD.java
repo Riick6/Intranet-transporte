@@ -181,9 +181,9 @@ public class CRUD extends Conexion {
             JOptionPane.showMessageDialog(null, "Error al actualizar el autobús: " + ex);
         }
     }
-    
+
     public void EditarChofer(Chofer cho) {
-        
+
         try {
             String sqlUpdate = "UPDATE chofer SET nombre=?, apellido=?, dni=?, genero=?, edad=?, celular=?, email=? WHERE id_chofer=?";
             ps = con.prepareStatement(sqlUpdate);
@@ -199,7 +199,40 @@ public class CRUD extends Conexion {
 
         } catch (Exception ex) {
             System.out.println("ERROR");
-            JOptionPane.showMessageDialog(null,"error no se puede "+ ex);
+            JOptionPane.showMessageDialog(null, "error no se puede " + ex);
+        }
+    }
+
+    public void EditarQueja(Queja que) {
+
+        try {
+            String sqlUpdate = "UPDATE quejas SET asunto=?, descripcion=? WHERE id_tabla=?";
+            ps = con.prepareStatement(sqlUpdate);
+            ps.setString(1, que.getAsunto());
+            ps.setString(2, que.getDesc());
+            ps.setString(3, que.getId_queja());
+            ps.executeUpdate();
+
+        } catch (Exception ex) {
+            System.out.println("ERROR");
+            JOptionPane.showMessageDialog(null, "error no se puede " + ex);
+        }
+    }
+    
+    public void EditarTerminal(Terminal ter) {
+
+        try {
+            String sqlUpdate = "UPDATE terminal SET id_estado=?, nombre_terminal=?, direccion=? WHERE id_terminal=?";
+            ps = con.prepareStatement(sqlUpdate);
+            ps.setInt(1, ter.getId_estado());
+            ps.setString(2, ter.getNombre_terminal());
+            ps.setString(3, ter.getDireccion());
+            ps.setInt(4, ter.getId_terminal());
+            ps.executeUpdate();
+
+        } catch (Exception ex) {
+            System.out.println("ERROR");
+            JOptionPane.showMessageDialog(null, "error no se puede " + ex);
         }
     }
 
@@ -217,7 +250,7 @@ public class CRUD extends Conexion {
             JOptionPane.showMessageDialog(null, "error no se puede " + ex);
         }
     }
-    
+
     public void EliminarChofer(Chofer cho) {
 
         try {
@@ -238,6 +271,34 @@ public class CRUD extends Conexion {
             String sqlUpdate = "DELETE from bus WHERE placa=?";
             ps = con.prepareStatement(sqlUpdate);
             ps.setString(1, bus.getPlaca());
+            ps.executeUpdate();
+
+        } catch (Exception ex) {
+            System.out.println("ERROR");
+            JOptionPane.showMessageDialog(null, "error no se puede " + ex);
+        }
+    }
+
+    public void EliminarQueja(Queja que) {
+
+        try {
+            String sqlUpdate = "DELETE from quejas WHERE id_tabla=?";
+            ps = con.prepareStatement(sqlUpdate);
+            ps.setString(1, que.getId_queja());
+            ps.executeUpdate();
+
+        } catch (Exception ex) {
+            System.out.println("ERROR");
+            JOptionPane.showMessageDialog(null, "error no se puede " + ex);
+        }
+    }
+    
+    public void EliminarTerminal(Terminal ter) {
+
+        try {
+            String sqlUpdate = "DELETE from terminal WHERE id_terminal=?";
+            ps = con.prepareStatement(sqlUpdate);
+            ps.setInt(1, ter.getId_terminal());
             ps.executeUpdate();
 
         } catch (Exception ex) {

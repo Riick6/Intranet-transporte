@@ -23,9 +23,9 @@ $(document).ready(function () {
     });
 });
 
-$(document).ready(function() {
+$(document).ready(function () {
 
-    $('.delete-button').click(function() {
+    $('.delete-button').click(function () {
 
         var adminID = $(this).data('id');
 
@@ -35,7 +35,7 @@ $(document).ready(function() {
     });
 
 
-    $('#confirmarEliminar').click(function() {
+    $('#confirmarEliminar').click(function () {
 
         $('#deleteAdminForm').submit();
     });
@@ -71,9 +71,9 @@ $(document).ready(function () {
     });
 });
 
-$(document).ready(function() {
+$(document).ready(function () {
 
-    $('.delete-button-bus').click(function() {
+    $('.delete-button-bus').click(function () {
 
         var busID = $(this).data('id');
 
@@ -83,7 +83,7 @@ $(document).ready(function() {
     });
 
 
-    $('#confirmarEliminar').click(function() {
+    $('#confirmarEliminar').click(function () {
 
         $('#deleteBusForm').submit();
     });
@@ -114,9 +114,9 @@ $(document).ready(function () {
     });
 });
 
-$(document).ready(function() {
+$(document).ready(function () {
 
-    $('.delete-button-chofer').click(function() {
+    $('.delete-button-chofer').click(function () {
 
         var busID = $(this).data('id');
 
@@ -126,12 +126,10 @@ $(document).ready(function() {
     });
 
 
-    $('#confirmarEliminar').click(function() {
+    $('#confirmarEliminar').click(function () {
 
         $('#deleteChoferForm').submit();
     });
 });
-
-
 
 
